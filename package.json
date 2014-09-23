@@ -1,0 +1,31 @@
+{
+  "name": "zep",
+  "version": "0.0.1",
+  "description": "Utility library",
+  "main": "zep.js",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-uglify": "~0.3.2",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-jasmine": "~0.6.1",
+    "grunt-jsdoc": "^0.5.7",
+    "jsdoc": "^3.3.0-alpha9",
+    "jsdoc-oblivion": "0.0.4",
+    "lodash": "~2.4.1"
+  },
+  "scripts": {
+    "test": "jasmine-node test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miguelmota/zep.git"
+  },
+  "author": "Miguel Mota",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/miguelmota/zep/issues"
+  }
+}

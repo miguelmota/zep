@@ -1,0 +1,21 @@
+{
+  "name": "rutil",
+  "main": "rutil.js",
+  "version": "0.0.9",
+  "homepage": "https://github.com/miguelmota/rutil",
+  "description": "JavaScript utilities",
+  "keywords": [
+    "utilities"
+  ],
+  "authors": [
+    "Miguel Mota"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
