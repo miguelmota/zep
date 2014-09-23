@@ -1,9 +1,9 @@
 {
-  "name": "rutil",
-  "main": "rutil.js",
-  "version": "0.0.9",
+  "name": "zep",
+  "main": "zep.js",
+  "version": "0.0.1",
   "homepage": "https://github.com/miguelmota/rutil",
-  "description": "JavaScript utilities",
+  "description": "Utilities library",
   "keywords": [
     "utilities"
   ],
