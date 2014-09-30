@@ -1,4 +1,4 @@
-(function(global, undefined) {
+(function() {
   var lib = (function(){
 
     'use strict';
@@ -1609,7 +1609,7 @@
       return lib;
     });
   } else {
-    global.zep = lib;
+    window.zep = lib;
   }
 
-}).call(this);
+}.call(this));
