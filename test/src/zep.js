@@ -831,6 +831,8 @@
         _this[k] = wrapper(v);
       });
 
+      _this.map = function
+
       return this;
     }
 

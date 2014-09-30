@@ -135,34 +135,37 @@ describe('Zep', function() {
     });
   });
 
-  describe('chain', function() {
+  xdescribe('chain', function() {
 
     it('should make an object chainable', function() {
-
-      function chain(o) {
-        var _this = this;
-        _this.o = o;
-
-        return {
-          map: function(fn) {
-            return zep.map(_this.o, fn);
-          }
-        };
-      }
 
       function addOne(o, i) {
         return o + 1;
       }
 
-      function addTwo(o, i) {
-        return o + 2;
+      function timesTwo(o, i) {
+        return o * 2;
       }
 
-      expect(chain([1,2,3]).map(addOne).map(addTwo)).toEqual([4,5,6]);
+      expect(
+        zep.chain([1,2,3])
+          .map(addOne)
+          .map(timesTwo)
+          .tap(function(a) {
+            return a.reverse();
+          })
+      ).toEqual([8,6,4]);
+
     });
 
   });
 
+
+  describe('tap', function() {
+    it('should tap', function() {
+      expect(zep.tap).toBeDefined();
+    });
+  });
 
   describe('clone', function() {
     it('should clone object', function() {
@@ -295,69 +298,53 @@ describe('Zep', function() {
 
   describe('invoker', function() {
     it('should return input', function() {
-      var o = {
-        name: 'zod',
-        getName: function() {
-          return this.name;
-        },
-        sayHello: function(greeting) {
-          return greeting + ', ' + this.getName();
-        }
-      };
 
-      expect(o.getName()).toEqual('zod');
-      expect(o.sayHello('Hi')).toEqual('Hi, zod');
+      var reverse = zep.invoker('reverse', Array.prototype.reverse);
 
-      var greeting = zep.invoker('sayHello', o.sayHello);
+      var reversed = _.map([[1,2,3],['a','b','c']], reverse);
 
-      expect(greeting(o, 'Yo')).toEqual('Yo, zod');
+      expect(reversed).toEqual([[3,2,1], ['c','b','a']]);
+
     });
   });
 
-  xdescribe('preCondition', function() {
-    it('should succeed if valid', function() {
+  describe('checkerInvoker', function() {
 
-      var conditions = [
-        (function() {
-          return true;
-        })(),
-        true
-      ];
+    var o = {
+      success: function success(n) {
+        return n + ' succeeded';
+      },
+      fail: function fail(n) {
+        return n + ' failed';
+      }
+    };
 
-      var o = {
-        success: function success() {
+    var isNumber = function isNumber(n) {
+      return zep.isNumber(n);
+    };
 
-        },
-        fail: function fail() {
+    var gt3 = function(n) {
+      return n > 3;
+    };
 
-        }
-      };
+    it('should invoke success', function() {
 
-      spyOn(o, 'success');
-      spyOn(o, 'fail');
+      var validNum = zep.checkerInvoker([isNumber, gt3], o.success, o.fail);
 
-      expect(zep.preCondition(conditions)).toBeTruthy();
-      zep.preCondition(conditions, o.success, o.fail)
-      expect(o.success).toHaveBeenCalled();
-      expect(o.fail).not.toHaveBeenCalled();
+      expect(validNum(5)).toEqual('5 succeeded');
 
-      conditions = [
-        (function() {
-          return false;
-        })(),
-        true
-      ];
+    });
 
-      expect(zep.preCondition(conditions)).toBeFalsy();
+    it('should invoke fail', function() {
+      //spyOn(o, 'success');
+      //spyOn(o, 'fail');
 
-      conditions = [
-        (function() {
-          return true;
-        })(),
-        false
-      ];
+      var validNum = zep.checkerInvoker([isNumber, gt3], o.success, o.fail);
 
-      expect(zep.preCondition(conditions)).toBeFalsy();
+      expect(validNum('c')).toEqual('c failed');
+
+      //expect(o.success).not.toHaveBeenCalled();
+      //expect(o.fail).toHaveBeenCalled();
     });
 
   });
