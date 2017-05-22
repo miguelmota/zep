@@ -1,11 +1,12 @@
+# (DEPRECATED)
+
 # zep.js
 
 Utility library for functional programming in JavaScript
 
-
 # Documentation
 
-**[http://zep.moogs.io](http://zep.moogs.io)**
+**[https://lab.miguelmota.com/zep](https://lab.miguelmota.com/zep)**
 
 # Install
 
